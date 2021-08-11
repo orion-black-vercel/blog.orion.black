@@ -9,7 +9,7 @@ module.exports = {
     // basic site info (required)
     name: 'Orion Black Blog',
     domain: 'blog.linkedinsalesnavigatorscraper.com',
-    author: 'Inventum Digital, Inc.',
+    author: 'Orion Black',
 
     // open graph metadata (optional)
     description: 'Orion Black Blog',
