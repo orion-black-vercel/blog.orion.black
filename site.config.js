@@ -18,7 +18,7 @@ module.exports = {
 
     // social usernames (optional)
     // twitter: '',
-    github: 'orion-black-tech',l
+    github: 'orion-black-tech',
     // linkedin: 'fisch2',
 
     // default notion icon and cover images for site-wide consistency (optional)
