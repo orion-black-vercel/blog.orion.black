@@ -8,7 +8,7 @@ module.exports = {
 
     // basic site info (required)
     name: 'Orion Black Blog',
-    domain: 'blog.linkedinsalesnavigatorscraper.com',
+    domain: 'blog.orion.black',
     author: 'Orion Black',
 
     // open graph metadata (optional)
@@ -18,7 +18,7 @@ module.exports = {
 
     // social usernames (optional)
     // twitter: '',
-    github: 'orion-black-tech',
+    github: 'orion-black-tech',l
     // linkedin: 'fisch2',
 
     // default notion icon and cover images for site-wide consistency (optional)
