@@ -10,9 +10,13 @@
 .dark-mode .notion-table-of-contents-active-item {
   color: var(--select-color-0) !important;
 }
-
 .notion-table-of-contents-active-item {
   color: #000 !important;
+}
+.notion-collection-column-title {
+  height: 12px;
+  vertical-align: middle;
+  height: 100%;
 }
 
 .dark-mode .notion-frame > header {
@@ -39,7 +43,7 @@
 }
 
 .notion-asset-wrapper-image {
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .notion-cursor-listener {
@@ -84,7 +88,8 @@
 }
 
 .notion-page-no-cover {
-  margin-top: calc(2 * var(--header)) !important;
+  margin-top: calc(var(--header));
+  padding-top: calc(var(--header));
 }
 
 .dark-mode .notion-page {
@@ -93,6 +98,7 @@
 
 .notion-table-of-contents {
   margin: 0;
+  width: auto;
 }
 
 .notion-title {
@@ -165,9 +171,9 @@ img {
   max-width: 75vw !important;
   object-fit: cover;
 }
-
-img.lazy-image-preview,
-img.lazy-image-real {
+body.light-mode img.lazy-image-preview,
+body.light-mode img.lazy-image-real {
+  filter: grayscale(1);
   aspect-ratio: auto;
 }
 
@@ -183,10 +189,18 @@ img.lazy-image-real {
 .notion-h6 {
   padding-top: initial;
 }
+.notion-page-no-cover.notion-page-has-image-icon {
+  padding-top: 0;
+}
+.notion-page-has-cover .notion-page-icon-wrapper img.notion-page-icon {
+  top: auto;
+}
 
 .notion-page-icon-wrapper {
   text-align: right;
   display: block;
+  position: relative;
+  margin: 0 auto var(--header);
 }
 
 .notion-page-icon-wrapper span.notion-page-icon {
@@ -197,6 +211,8 @@ img.lazy-image-real {
   text-align: right;
   max-width: 640px;
   padding: 78px;
+  padding: 0;
+  text-align: center;
 }
 
 .notion {
@@ -212,6 +228,9 @@ img.lazy-image-real {
   right: 0;
   width: calc((100vw - 640px) / 2);
   position: fixed;
+  display: block !important;
+  -webkit-mask-image: linear-gradient(90deg, black, transparent);
+  top: calc((3 * var(--header))+64px);
 }
 
 .dark-mode .notion-table-of-contents-item-body {
@@ -227,7 +246,7 @@ img.lazy-image-real {
 img.notion-page-icon,
 svg.notion-page-icon {
   display: block;
-  object-fit: fill;
+  object-fit: contain;
   border-radius: 3px;
   background-image: var(--southeast-arrow-url);
   max-width: 24px;
@@ -280,10 +299,6 @@ svg.notion-page-icon {
   overflow: initial;
 }
 
-.notion-aside {
-  top: calc((3 * var(--header))+64px);
-}
-
 .notion-h {
   font-weight: 400;
 }
@@ -298,6 +313,7 @@ svg.notion-page-icon {
 }
 
 .notion-header .breadcrumb {
+  padding: 4px 6px 4px 2px;
   color: #000;
   opacity: 0.5;
 }
@@ -311,6 +327,16 @@ svg.notion-page-icon {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+#__next
+  > div
+  > div.notion-frame
+  > header
+  > div
+  > div.breadcrumbs
+  > :first-child
+  > span {
+  padding-left: 29px !important;
 }
 
 .dark-mode .notion-header .breadcrumb {
@@ -423,7 +449,7 @@ body.dark-mode
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: normal;
-  text-rendering: geometricprecision;
+  text-rendering: geometricPrecision;
   -webkit-font-smoothing: subpixel-antialiased;
   font-weight: 600;
   font-size: 12px;
@@ -454,10 +480,21 @@ body.dark-mode
 
 .notion-page-icon {
   filter: grayscale(1);
+  transition: 0.125s all ease-in-out;
 }
 
 :hover > .notion-page-icon {
-  filter: grayscale(0);
+  -webkit-filter: grayscale(0) !important;
+  filter: grayscale(0) !important;
+  opacity: 1 !important;
+}
+img {
+  transition: 0.125s all ease-in-out;
+}
+img:hover {
+  -webkit-filter: grayscale(0) !important;
+  filter: grayscale(0) !important;
+  opacity: 1 !important;
 }
 
 path[d='M16,1H4v28h22V11L16,1z M16,3.828L23.172,11H16V3.828z M24,27H6V3h8v10h10V27z M8,17h14v-2H8V17z M8,21h14v-2H8V21z M8,25h14v-2H8V25z'] {
@@ -579,7 +616,9 @@ div.notion-page-content a.notion-page-link::after {
 
 @media (min-width: 480px) {
   .notion-page-link {
-    width: calc(50% - 16px);
+    /* width: calc(50% - 16px); */
+    width: 100%;
+    max-width: 300px;
   }
 }
 
@@ -624,7 +663,7 @@ div.notion-page-content a.notion-page-link::after {
   background-image: url(//ubq.fi/image/grid-1.png);
 }
 
-#__next > div > div.notion-frame > header > div > div.breadcrumbs > div > img {
+#__next > div > div.notion-frame > header > div > div.breadcrumbs > * > img {
   background: transparent;
 }
 #__next
@@ -633,7 +672,7 @@ div.notion-page-content a.notion-page-link::after {
   > header
   > div
   > div.breadcrumbs
-  > div
+  > *
   > img
   + span {
   margin-left: 16px;
@@ -716,16 +755,17 @@ video.notion-page-cover {
   position: fixed;
   pointer-events: none;
   filter: invert(1) grayscale(0.25) brightness(1) contrast(1.25) blur(8px)
-    opacity(0.25) hue-rotate(180deg);
-  animation: 20s ease-in-out 0s 1 fadeIn;
+    opacity(0.3) hue-rotate(180deg);
+  animation: 5s ease-in-out 0s 1 fadeIn;
   height: calc(100vh - calc(2 * var(--header)));
   width: 100vw;
-  object-fit: contain;
+  object-fit: cover;
+  -webkit-mask-image: radial-gradient(#000000ff, #00000000);
 }
 .dark-mode video.notion-page-cover {
   filter: invert(0) grayscale(0.25) brightness(1) contrast(1.25) blur(8px)
-    opacity(0.25);
-  animation: 20s ease-in-out 0s 1 fadeIn;
+    opacity(0.3);
+  animation: 5s ease-in-out 0s 1 fadeIn;
 }
 
 @media (orientation: portrait) {
@@ -813,4 +853,47 @@ video.notion-page-cover {
 }
 .notion-page-link:nth-child(25) {
   animation: 2.5s ease-in-out 0s 1 fadeIn;
+}
+
+.resultsPane .notion-page-icon {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin: 0px;
+  width: 48px;
+  height: 48px;
+  display: block;
+  background: #fff;
+  background-repeat: no-repeat;
+  background-position: 12px;
+  /*   background-size: cover; */
+}
+
+.dark-mode .resultsPane .result {
+  color: #000;
+}
+
+.resultsPane .result {
+  padding-left: 48px;
+  opacity: 1;
+  max-width: 100%;
+  margin: 0;
+}
+
+.resultsPane .notion-page-link > .notion-page-title {
+  max-width: none;
+  width: 100%;
+  text-align: left;
+}
+
+.resultsPane .notion-page-title-icon.notion-page-icon {
+  text-align: center;
+  font-size: 16px;
+  line-height: 2;
+}
+
+.notion-page-has-cover .notion-page-icon-wrapper span.notion-page-icon {
+  top: 0;
+  padding: 0;
+  text-align: center;
 }
